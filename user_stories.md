@@ -1,8 +1,7 @@
 Ascii Jeeves - User Stories
 ---------------------------
 
-As a social media user
-In order to communicate using memes (in the Ascii format for this case)
+As a social media user in order to communicate using memes (in the Ascii format)
 I want to quickly and easily find relevant Ascii images
 
 ##### Acceptance Criteria
