@@ -1,9 +1,7 @@
 Get-a-Gif User Stories
 ---------------------------
 
-As a social media user
-In order to communicate using images
-I want to quickly and easily find relevant .gif urls
+As a social media user, in order to communicate using images I want to quickly and easily find relevant .gif urls
 
 ##### Acceptance Criteria
 1. Users should be prompted as few times as necessary to perform an effective query
