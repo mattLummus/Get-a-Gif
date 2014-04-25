@@ -1,10 +1,10 @@
-Ascii-Jeeves
+Get-a-Gif
 ============
 
-Ascii Meme Database Application
+Gif Database Application
 
 Purpose:
-User requests a category or emotion and the app returns relevant Ascii images
+User requests a category or emotion and the app returns relevant images
 
 Dependencies:
 Uses Ruby and SQLite
