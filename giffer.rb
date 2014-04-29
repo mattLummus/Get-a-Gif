@@ -1,21 +1,32 @@
-##!/usr/bin/env ruby
+require "sqlite3"
 
 class App
 
   def initialize(*args)
     input = args[0]
 
+    #Open a database
+    db = SQLite3::Database.new('gifs.db')
+    db.execute "CREATE TABLE IF NOT EXISTS Gifs(id INTEGER PRIMARY KEY,
+        url TEXT, category TEXT, emotion TEXT, reference TEXT)"
+
     if input[0] == "give"
-      url = input[0].dup
       puts "give a gif"
-      new_input = gets.chomp
-      puts "here is your request: #{new_input}"
-      #run give_gif(url)
+      id = (db.last_insert_row_id + 1)# || 1
+      url = input[1].dup
+      category = input[2]
+      emotion = input[3]
+      reference = input[4]
+      #db.execute "INSERT INTO Gifs VALUES (#{id}, #{url}, #{category}, #{emotion}, #{reference})"
+      puts "INSERT INTO Gifs VALUES (#{id}, #{url}, #{category}, #{emotion}, #{reference})"
+
     elsif input[0] == "get"
-      puts "get a gif"
-      new_input = gets.chomp
-      puts "here is your request: #{new_input}"
-      #run get_gif
+      puts "give a gif"
+      link = 'https://i.imgur.com/LsglmGb.gif'
+      IO.popen('open -a Google\ Chrome '+link, 'r+') do |pipe|
+        pipe.close_write
+      end #of IO
+
     else
       puts "There was an error in your request."
       puts "Try one of these requests:"
