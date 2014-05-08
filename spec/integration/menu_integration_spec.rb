@@ -26,9 +26,8 @@ EOS
       shell_output.should include("Enter your url:")
     end
   end
-=begin
   context "if the user types in the wrong input" do
-    let(:shell_output){ run_ltk_with_input("4") }
+    let(:shell_output){ run_giffer_with_input("4") }
     it "should print the menu again" do
       shell_output.should include_in_order(menu_text, "4", menu_text)
     end
@@ -37,7 +36,7 @@ EOS
     end
   end
   context "if the user types in no input" do
-    let(:shell_output){ run_ltk_with_input("") }
+    let(:shell_output){ run_giffer_with_input("") }
     it "should print the menu again" do
       shell_output.should include_in_order(menu_text, menu_text)
     end
@@ -46,17 +45,48 @@ EOS
     end
   end
   context "if the user types in incorrect input, it should allow correct input" do
-    let(:shell_output){ run_ltk_with_input("4", "3") }
+    let(:shell_output){ run_giffer_with_input("4", "1") }
     it "should include the appropriate menu" do
-      shell_output.should include("Who is injured?")
+      shell_output.should include("What is your first criteria?")
     end
   end
   context "if the user types in incorrect input multiple times, it should allow correct input" do
-    let(:shell_output){ run_ltk_with_input("4","", "1") }
+    let(:shell_output){ run_giffer_with_input("4","", "1") }
     it "should include the appropriate menu" do
-      shell_output.should include("Who do you want to add?")
+      shell_output.should include("What is your first criteria?")
     end
   end
-=end
+
+  context "the get menu should cylce through the different tag options" do
+    let(:shell_output){run_giffer_with_input("1", "1", "1", "1", "1")}
+    it "should include the appropriate menu" do
+      shell_output.should include ("finish menu and open links")
+    end
+  end
+  context "the get menu should cylce through the different tag options" do
+    let(:shell_output){run_giffer_with_input("1", "2", "1", "1", "1")}
+    it "should include the appropriate menu" do
+      shell_output.should include ("finish menu and open links")
+    end
+  end
+  context "the get menu should cylce through the different tag options" do
+    let(:shell_output){run_giffer_with_input("1", "3", "1", "1", "1")}
+    it "should include the appropriate menu" do
+      shell_output.should include ("finish menu and open links")
+    end
+  end
+  context "the give menu should cylce through the different tag options" do
+    let(:shell_output){run_giffer_with_input("2", "url", "1", "1", "1")}
+    it "should include the appropriate menu" do
+      shell_output.should include ("finish menu and open links")
+    end
+  end
+  context "the give menu should cylce through the different tag options and allow new tags" do
+    let(:shell_output){run_giffer_with_input("2", "url", "x", "reaction", "x", "approval", "x", "batman")}
+    it "should include the appropriate menu" do
+      shell_output.should include ("finish menu and open links")
+    end
+  end
+
 end
 

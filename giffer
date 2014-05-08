@@ -7,6 +7,7 @@ require 'environment'
 Environment.environment = ENV["ENVIRONMENT"] || "production"
 $stderr = $stdout
 
+require 'gif'
 #require 'injury'
 #require 'injury_outcome'
 #require 'person'
@@ -16,6 +17,16 @@ def menu
 What do you want to do?
 1. Get a .gif
 2. Give a .gif
+EOS
+end
+
+def menu_criteria
+<<EOS
+What is your first criteria?
+1. Category
+2. Emotion
+3. Reference
+4. Random Sample
 EOS
 end
 
@@ -67,11 +78,23 @@ end
 =end
 
 def select_criteria
-  puts "What is your first criteria?"
+  puts menu_criteria
   criteria = gets
   return unless criteria
   criteria.chomp!
-  #DB stuff
+  case criteria
+  when "1"
+    what_category("get", 1)
+  when "2"
+    what_emotion("get", 1)
+  when "3"
+    what_reference("get", 1)
+  when "4"
+    random_sample
+  else
+    puts "'#{criteria}' is not a valid selection"
+    select_criteria
+  end
 end
 
 def enter_url
@@ -79,7 +102,81 @@ def enter_url
   url = gets
   return unless url
   url.chomp!
-  #DB stuff
+  #pass url and get/give variable
+  what_category("give", 1)
+end
+
+def what_category(type, order)
+  puts "What Category?"
+  #puts categories from db
+  puts "x. New Category" if type == "give"
+  category = gets
+  return unless category
+  category.chomp!
+  new_tag("category", order, "2") if category == "x"
+  if order < 3
+    order += 1
+    what_emotion(type, order)
+  else
+    puts "finish menu and open links"
+  end
+end
+
+def what_emotion(type, order)
+  puts "What Emotion?"
+  #puts emotions from db
+  puts "x. New Emotion" if type == "give"
+  emotion = gets
+  return unless emotion
+  emotion.chomp!
+  new_tag("emotion", order, "3") if emotion == "x"
+  if order < 3
+    order += 1
+    what_reference(type, order)
+  else
+    puts "finish menu and open links"
+  end
+end
+
+def what_reference(type, order)
+  puts "What Reference?"
+  #puts references from db
+  puts "x. New Reference" if type == "give"
+  reference = gets
+  return unless reference
+  reference.chomp!
+  new_tag("reference", order, "1") if reference == "x"
+  if order < 3
+    order += 1
+    what_category(type, order)
+  else
+    puts "finish menu and open links"
+  end
+end
+
+def random_sample
+  puts "random sample here"
+end
+
+def new_tag(type, order, next_method)
+  puts "Enter new #{type}"
+  tag_name = gets
+  return unless tag_name
+  tag_name.chomp!
+  #database stuff
+  if order < 3
+    order += 1
+    case next_method
+    when "1"
+      what_category("give", order)
+    when "2"
+      what_emotion("give", order)
+    when "3"
+      what_reference("give", order)
+    end
+  else
+    puts "finish menu and open links"
+  end
 end
 
 # REPL
