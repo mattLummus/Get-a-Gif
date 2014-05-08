@@ -1,39 +1,32 @@
 require_relative '../spec_helper'
 
-=begin
 describe "Menu Integration" do
   let(:menu_text) do
 <<EOS
 What do you want to do?
-1. Add Person
-2. Add Injury
-3. Evaluate Injured Person
+1. Get a .gif
+2. Give a .gif
 EOS
   end
   context "the menu displays on startup" do
-    let(:shell_output){ run_ltk_with_input() }
+    let(:shell_output){ run_giffer_with_input() }
     it "should print the menu" do
       shell_output.should include(menu_text)
     end
   end
   context "the user selects 1" do
-    let(:shell_output){ run_ltk_with_input("1") }
+    let(:shell_output){ run_giffer_with_input("1") }
     it "should print the next menu" do
-      shell_output.should include("Who do you want to add?")
+      shell_output.should include("What is your first criteria?")
     end
   end
   context "the user selects 2" do
-    let(:shell_output){ run_ltk_with_input("2") }
+    let(:shell_output){ run_giffer_with_input("2") }
     it "should print the next menu" do
-      shell_output.should include("What is the injury you want to add?")
+      shell_output.should include("Enter your url:")
     end
   end
-  context "the user selects 3" do
-    let(:shell_output){ run_ltk_with_input("3") }
-    it "should print the next menu" do
-      shell_output.should include("Who is injured?")
-    end
-  end
+=begin
   context "if the user types in the wrong input" do
     let(:shell_output){ run_ltk_with_input("4") }
     it "should print the menu again" do
@@ -64,6 +57,6 @@ EOS
       shell_output.should include("Who do you want to add?")
     end
   end
+=end
 end
 
-=end

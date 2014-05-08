@@ -1,0 +1,11 @@
+# Logfile created on 2014-05-08 11:11:49 -0500 by logger.rb/41954
+I, [2014-05-08T11:11:49.966960 #11233]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:14:03.981550 #11243]  INFO -- : Executing: CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference(50) with: []
+I, [2014-05-08T11:14:06.929857 #11245]  INFO -- : Executing: CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference(50) with: []
+I, [2014-05-08T11:14:21.351815 #11247]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:16:56.665280 #11268]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:17:31.885084 #11270]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:20:14.246019 #11274]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:32:01.181718 #11307]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:32:51.681640 #11309]  INFO -- : Executing: DELETE FROM gifs; with: []
+I, [2014-05-08T11:33:05.777127 #11311]  INFO -- : Executing: DELETE FROM gifs; with: []

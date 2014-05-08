@@ -1,46 +1,102 @@
 #!/usr/bin/env ruby
-require "sqlite3"
 
-class App
+$LOAD_PATH << "lib"
+$LOAD_PATH << "models"
 
-  def initialize(*args)
-    input = args[0]
+require 'environment'
+Environment.environment = ENV["ENVIRONMENT"] || "production"
+$stderr = $stdout
 
-    #Open a database
-    db = SQLite3::Database.new('gifs.db')
-    #db.execute "CREATE TABLE IF NOT EXISTS Gifs(id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT, category TEXT, emotion TEXT, reference TEXT)"
-    db.execute "CREATE TABLE IF NOT EXISTS Gifs(url TEXT, category TEXT, emotion TEXT, reference TEXT)"
+#require 'injury'
+#require 'injury_outcome'
+#require 'person'
 
-    if input[0] == "give"
-      puts "give a gif"
-      url = input[1].dup
-      category = input[2]
-      emotion = input[3]
-      reference = input[4]
-      db.execute "INSERT INTO Gifs VALUES('#{url}', '#{category}', '#{emotion}', '#{reference}')"
+def menu
+<<EOS
+What do you want to do?
+1. Get a .gif
+2. Give a .gif
+EOS
+end
 
-    elsif input[0] == "get"
-      puts "get a gif"
-      link = 'https://i.imgur.com/LsglmGb.gif'
-      stm = db.prepare "SELECT url FROM Gifs LIMIT 5"
-      rs = stm.execute
-      rs.each do |row|
-        row = row.to_s
-        row.gsub!("[", '')
-        row.gsub!("]", '')
-        IO.popen('open -a Google\ Chrome '+row, 'r+') do |pipe|
-          pipe.close_write
-        end #of IO
-      end
+=begin
+def record_desired_outcomes_for(person)
+  Injury.all.each do |injury|
+    puts "What if #{injury.name}?"
+    puts "1. Put me out of my misery."
+    puts "2. Just a flesh wound. Carry on."
+    response = gets.chomp!
+    kill_them = (response == "1")
+    if kill_them
+      puts "We'll kill you if you suffer from #{injury.name}"
     else
-      puts "There was an error in your request."
-      puts "Try one of these requests:"
-      puts "./giffer give url.gif (to insert a new gif)"
-      puts "./giffer get (to receive an old gif)"
-    end #of input check
+      puts "We'll let you linger on if you suffer from #{injury.name}"
+    end
+    InjuryOutcome.create_for(person, injury, kill_them)
+  end
+end
 
-  end #of initialize
+def add_person
+  puts "Who do you want to add?"
+  person_name = gets
+  return unless person_name
+  person_name.chomp!
+  person = Person.new(person_name)
+  if person.save
+    puts "#{person.name} has been added."
+    record_desired_outcomes_for(person)
+  else
+    puts person.errors
+    add_person
+  end
+end
 
-end #of class
+def add_injury
+  puts "What is the injury you want to add?"
+  injury_name = gets
+  return unless injury_name
+  injury_name.chomp!
+  injury = Injury.new(injury_name)
+  if injury.save
+    puts "#{injury_name} has been added."
+  else
+    puts injury.errors
+    add_injury
+  end
+end
+=end
 
-gif_app = App.new(ARGV)
+def select_criteria
+  puts "What is your first criteria?"
+  criteria = gets
+  return unless criteria
+  criteria.chomp!
+  #DB stuff
+end
+
+def enter_url
+  puts "Enter your url:"
+  url = gets
+  return unless url
+  url.chomp!
+  #DB stuff
+end
+
+# REPL
+# Read - Eval - Print Loop
+def get_menu_selection
+  puts menu
+  input = gets
+  return unless input
+  input.chomp!
+  if input == "1"
+    select_criteria
+  elsif input == "2"
+    enter_url
+  else
+    puts "'#{input}' is not a valid selection"
+    get_menu_selection
+  end
+end
+
+get_menu_selection

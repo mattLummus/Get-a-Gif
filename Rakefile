@@ -16,7 +16,7 @@ end
 desc 'prepare the test database'
 task :test_prepare do
   require 'environment'
-  test_database = "db/get_a_gif.sqlite3"
+  test_database = "db/get_a_gif_test.sqlite3"
   File.delete(test_database) if File.exist?(test_database)
   Environment.environment = "test"
   database = Environment.database_connection

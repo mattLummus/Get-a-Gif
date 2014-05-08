@@ -10,13 +10,10 @@ class Database < SQLite3::Database
     @connection ||= Database.new("db/get_a_gif_#{environment}.sqlite3")
   end
 
-=begin
   def create_tables
-    self.execute("CREATE TABLE injuries (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(50))")
-    self.execute("CREATE TABLE people (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(50))")
-    self.execute("CREATE TABLE injury_outcomes (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, injury_id INTEGER, kill INTEGER)")
+    #self.execute("CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference(50)")
+    #self.execute("CREATE TABLE tags (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_name varchar(50), tag_type varchar(50)")
   end
-=end
 
   def execute(statement, bind_vars = [])
     Environment.logger.info("Executing: #{statement} with: #{bind_vars}")
