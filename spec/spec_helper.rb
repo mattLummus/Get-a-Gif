@@ -3,9 +3,7 @@ $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
 require 'environment'
-#require 'injury'
-#require 'injury_outcome'
-#require 'person'
+require 'gif'
 
 Environment.environment = "test"
 
@@ -23,8 +21,7 @@ end
 
 RSpec.configure do |config|
   config.after(:each) do
-    #Environment.database_connection.execute("DELETE FROM gifs;")
-    #Environment.database_connection.execute("DELETE FROM tags;")
+    Environment.database_connection.execute("DELETE FROM gifs;")
   end
 end
 

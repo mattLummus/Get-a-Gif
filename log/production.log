@@ -1,0 +1,4 @@
+# Logfile created on 2014-05-09 10:27:38 -0500 by logger.rb/41954
+I, [2014-05-09T10:27:38.223210 #13132]  INFO -- : Executing: CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference(50)) with: []
+I, [2014-05-09T10:29:06.486479 #13133]  INFO -- : Executing: CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference varchar(50)) with: []
+I, [2014-05-09T10:29:06.493179 #13133]  INFO -- : Executing: CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference varchar(50)) with: []

@@ -11,8 +11,7 @@ class Database < SQLite3::Database
   end
 
   def create_tables
-    self.execute("CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference(50)")
-    self.execute("CREATE TABLE tags (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_name varchar(50), tag_type varchar(50)")
+    self.execute("CREATE TABLE gifs (id INTEGER PRIMARY KEY AUTOINCREMENT, url varchar(100), category varchar(50), emotion varchar(50), reference varchar(50))")
   end
 
   def execute(statement, bind_vars = [])

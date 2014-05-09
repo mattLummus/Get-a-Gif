@@ -44,8 +44,10 @@ class Gif
 
   def save
     #if self.valid?
-      statement = "Insert into gifs (url, category, emotion, reference) values (?);"
-      Environment.database_connection.execute(statement, url, category, emotion, reference)
+      #statement = "Insert into gifs (url, category, emotion, reference) values (?);"
+      #Environment.database_connection.execute(statement, url, category, emotion, reference)
+      statement = "Insert into gifs (url, category, emotion, reference) values ('#{url}', '#{category}', '#{emotion}', '#{reference}');"
+      Environment.database_connection.execute(statement)
       @id = Environment.database_connection.execute("SELECT last_insert_rowid();")[0][0]
       true
     #else
@@ -72,9 +74,9 @@ class Gif
     rows = Environment.database_connection.execute(statement, bind_vars)
     results = []
     rows.each do |row|
-      injury = Injury.new(row["name"])
-      injury.instance_variable_set(:@id, row["id"])
-      results << injury
+      gif = Gif.new(row["url"], row["category"], row["emotion"], row["reference"])
+      gif.instance_variable_set(:@id, row["id"])
+      results << gif
     end
     results
   end

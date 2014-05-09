@@ -8,9 +8,6 @@ Environment.environment = ENV["ENVIRONMENT"] || "production"
 $stderr = $stdout
 
 require 'gif'
-#require 'injury'
-#require 'injury_outcome'
-#require 'person'
 
 def menu
 <<EOS
