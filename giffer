@@ -4,6 +4,7 @@ $LOAD_PATH << "lib"
 $LOAD_PATH << "models"
 
 require 'environment'
+require 'gif'
 Environment.environment = ENV["ENVIRONMENT"] || "production"
 $stderr = $stdout
 
@@ -24,6 +25,34 @@ What is your first criteria?
 2. Emotion
 3. Reference
 4. Random Sample
+EOS
+end
+
+def cat_defaults
+<<EOS
+1. Reaction
+2. Abstract
+EOS
+end
+
+def emo_defaults
+<<EOS
+1. Happy
+2. Angry
+3. Sad
+4. Approval
+5. Excitement
+6. Sarcasm
+7. Skepticism
+8. Generic
+EOS
+end
+
+def ref_defaults
+<<EOS
+1. Meme
+2. Sports
+3. Politics
 EOS
 end
 
@@ -103,9 +132,25 @@ def enter_url
   what_category("give", 1)
 end
 
+def print_db_tags(tag_type, first_number)
+    tag_array = Gif.all_tags(tag_type)
+    tag_array.each do |tag|
+      puts "#{first_number}. #{tag}"
+      first_number += 1
+    end
+end
+
 def what_category(type, order)
   puts "What Category?"
-  #puts categories from db
+  if type == "give"
+    puts cat_defaults
+    #magic number. Refactor default print statemnts later to avoid this
+    first_number = 3
+  else
+    first_number = 1
+  end
+  print_db_tags("category", first_number) if Gif.count > 0
+
   puts "x. New Category" if type == "give"
   category = gets
   return unless category
@@ -121,7 +166,15 @@ end
 
 def what_emotion(type, order)
   puts "What Emotion?"
-  #puts emotions from db
+  if type == "give"
+    puts emo_defaults
+    #magic number. Refactor default print statemnts later to avoid this
+    first_number = 9
+  else
+    first_number = 1
+  end
+  print_db_tags("emotion", first_number) if Gif.count > 0
+
   puts "x. New Emotion" if type == "give"
   emotion = gets
   return unless emotion
@@ -137,7 +190,15 @@ end
 
 def what_reference(type, order)
   puts "What Reference?"
-  #puts references from db
+  if type == "give"
+    puts ref_defaults
+    #magic number. Refactor default print statemnts later to avoid this
+    first_number = 4
+  else
+    first_number = 1
+  end
+  print_db_tags("reference", first_number) if Gif.count > 0
+
   puts "x. New Reference" if type == "give"
   reference = gets
   return unless reference
@@ -184,7 +245,11 @@ def get_menu_selection
   return unless input
   input.chomp!
   if input == "1"
-    select_criteria
+    if Gif.count > 0
+      select_criteria
+    else
+      puts "No gifs in database. Please insert one first."
+    end
   elsif input == "2"
     enter_url
   else

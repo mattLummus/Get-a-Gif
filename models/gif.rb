@@ -18,6 +18,11 @@ class Gif
     execute_and_instantiate(statement)
   end
 
+  def self.all_tags(tag)
+    statement = "Select #{tag} from gifs;"
+    execute_and_instantiate(statement)
+  end
+
   def self.count
     statement = "Select count(*) from gifs;"
     result = Environment.database_connection.execute(statement)

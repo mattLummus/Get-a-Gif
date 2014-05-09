@@ -65,33 +65,38 @@ describe Gif do
       it "should return multiple gifs with the matching category" do
         Gif.find_by_tag("category", "reaction").length.should == 2
       end
+      it "should return the gif with the matching emotion" do
+        Gif.find_by_tag("emotion", "generic")[0].id.should == baz.id
+      end
+      it "should return the gif with the matching reference" do
+        Gif.find_by_tag("reference", "baz")[0].id.should == baz.id
+      end
+    end
+  end
+
+  context ".last" do
+    context "with no gifs in the database" do
+      it "should return 0" do
+        Gif.find_by_tag("category", "reaction")[0].should be_nil
+      end
+    end
+    context "with gif by that tag in the database" do
+      let(:baz){ Gif.new("baz.gif", "abstract", "generic", "baz") }
+      before do
+        Gif.new("bar.gif", "reaction", "angry", "bar").save
+        Gif.new("foo.gif", "reaction", "happy", "foo").save
+        baz.save
+      end
+      it "should return the last one inserted" do
+        Gif.last.url.should == "baz.gif"
+      end
+      it "should return the last one inserted with id populated" do
+        Gif.last.id.should == baz.id
+      end
     end
   end
 
 =begin
-  context ".last" do
-    context "with no injuries in the database" do
-      it "should return nil" do
-        Injury.last.should be_nil
-      end
-    end
-    context "with multiple injuries in the database" do
-      let(:grille){ Injury.new("Grille") }
-      before do
-        Injury.new("Foo").save
-        Injury.new("Bar").save
-        Injury.new("Baz").save
-        grille.save
-      end
-      it "should return the last one inserted" do
-        Injury.last.name.should == "Grille"
-      end
-      it "should return the last one inserted with id populated" do
-        Injury.last.id.should == grille.id
-      end
-    end
-  end
-
   context "#new" do
     let(:injury){ Injury.new("impalement, 1/2 inch diameter or smaller") }
     it "should store the name" do
