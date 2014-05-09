@@ -30,12 +30,11 @@ class Gif
     gif
   end
 
-=begin
-  def self.find_by_name(name)
-    statement = "Select * from injuries where name = ?;"
-    execute_and_instantiate(statement, name)[0]
+  #returns an array
+  def self.find_by_tag(tag_type, tag_value)
+    statement = "Select * from gifs where #{tag_type} = ?;"
+    execute_and_instantiate(statement, tag_value)
   end
-=end
 
   def self.last
     statement = "Select * from gifs order by id DESC limit(1);"

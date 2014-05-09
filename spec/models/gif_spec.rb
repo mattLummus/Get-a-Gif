@@ -24,49 +24,51 @@ describe Gif do
       end
     end
   end
-=begin
+
   context ".count" do
     context "with no injuries in the database" do
       it "should return 0" do
-        Injury.count.should == 0
+        Gif.count.should == 0
       end
     end
     context "with multiple injuries in the database" do
       before do
-        Injury.new("Foo").save
-        Injury.new("Bar").save
-        Injury.new("Baz").save
-        Injury.new("Grille").save
+      Gif.new("foo.gif", "reaction", "happy", "foo").save
+      Gif.new("bar.gif", "reaction", "angry", "bar").save
+      Gif.new("baz.gif", "abstract", "generic", "baz").save
       end
       it "should return the correct count" do
-        Injury.count.should == 4
+        Gif.count.should == 3
       end
     end
   end
 
-  context ".find_by_name" do
-    context "with no injuries in the database" do
+  context ".find_by_tag" do
+    context "with no gifs in the database" do
       it "should return 0" do
-        Injury.find_by_name("Foo").should be_nil
+        Gif.find_by_tag("category", "reaction")[0].should be_nil
       end
     end
-    context "with injury by that name in the database" do
-      let(:foo){ Injury.new("Foo") }
+    context "with gif by that tag in the database" do
+      let(:baz){ Gif.new("baz.gif", "abstract", "generic", "baz") }
       before do
-        foo.save
-        Injury.new("Bar").save
-        Injury.new("Baz").save
-        Injury.new("Grille").save
+        baz.save
+        Gif.new("bar.gif", "reaction", "angry", "bar").save
+        Gif.new("foo.gif", "reaction", "happy", "foo").save
       end
-      it "should return the injury with that name" do
-        Injury.find_by_name("Foo").name.should == "Foo"
+      it "should return the gif with that category" do
+        Gif.find_by_tag("category", "abstract")[0].url.should == "baz.gif"
       end
       it "should populate the id" do
-        Injury.find_by_name("Foo").id.should == foo.id
+        Gif.find_by_tag("category", "abstract")[0].id.should == baz.id
+      end
+      it "should return multiple gifs with the matching category" do
+        Gif.find_by_tag("category", "reaction").length.should == 2
       end
     end
   end
 
+=begin
   context ".last" do
     context "with no injuries in the database" do
       it "should return nil" do
