@@ -23,6 +23,16 @@ class Gif
     execute_and_instantiate(statement)
   end
 
+  def self.full_query(category, emotion, reference)
+    statement = "Select url from gifs where category = '#{category}' AND emotion = '#{emotion}' AND reference = '#{reference}'"
+    execute_and_instantiate(statement)
+  end
+
+  def self.backup_query(type, tag)
+    statement = "Select url from gifs where #{type} = '#{tag}'"
+    execute_and_instantiate(statement)
+  end
+
   def self.count
     statement = "Select count(*) from gifs;"
     result = Environment.database_connection.execute(statement)

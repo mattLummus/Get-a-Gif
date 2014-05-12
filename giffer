@@ -24,7 +24,6 @@ What is your first criteria?
 1. Category
 2. Emotion
 3. Reference
-4. Random Sample
 EOS
 end
 
@@ -41,11 +40,13 @@ def ref_defaults
 end
 
 def select_criteria
-  puts menu_criteria
-  criteria = gets
-  return unless criteria
-  criteria.chomp!
+  #puts menu_criteria
+  #criteria = gets
+  #return unless criteria
+  #criteria.chomp!
   data_array = ["get", "none", "", "", ""]
+  what_category("get", 1, data_array)
+=begin
   case criteria
   when "1"
     what_category("get", 1, data_array)
@@ -53,12 +54,13 @@ def select_criteria
     what_emotion("get", 1, data_array)
   when "3"
     what_reference("get", 1, data_array)
-  when "4"
-    random_sample
+  #when "4"
+  #  random_sample
   else
     puts "'#{criteria}' is not a valid selection"
     select_criteria
   end
+=end
 end
 
 def enter_url
@@ -97,18 +99,22 @@ def print_db_tags(tag_type, print_type)
       puts "#{first_number}. #{tag}"
       first_number += 1
     end
-    #tag_array
+    print_array
 end
 
 def what_category(type, order, data_array)
   puts "What Category?"
-  print_db_tags("category", type)
+  print_array = print_db_tags("category", type)
 
   puts "x. New Category" if type == "give"
   category = gets
   return unless category
   category.chomp!
   new_tag("category", order, "2", data_array) if category == "x"
+  category_choice = choose_selection(category, print_array, "category", type, order, data_array)
+  what_category(type, order, data_array) if category_choice == "error"
+  data_array[2] = category_choice
+
   if order < 3
     order += 1
     what_emotion(type, order, data_array)
@@ -124,13 +130,17 @@ end
 
 def what_emotion(type, order, data_array)
   puts "What Emotion?"
-  print_db_tags("emotion", type)
+  print_array = print_db_tags("emotion", type)
 
   puts "x. New Emotion" if type == "give"
   emotion = gets
   return unless emotion
   emotion.chomp!
   new_tag("emotion", order, "3", data_array) if emotion == "x"
+  emotion_choice = choose_selection(emotion, print_array, "emotion", type, order, data_array)
+  what_emotion(type, order, data_array) if emotion_choice == "error"
+  data_array[3] = emotion_choice
+
   if order < 3
     order += 1
     what_reference(type, order, data_array)
@@ -146,13 +156,17 @@ end
 
 def what_reference(type, order, data_array)
   puts "What Reference?"
-  print_db_tags("reference", type)
+  print_array = print_db_tags("reference", type)
 
   puts "x. New Reference" if type == "give"
   reference = gets
   return unless reference
   reference.chomp!
   new_tag("reference", order, "1", data_array) if reference == "x"
+  reference_choice = choose_selection(reference, print_array, "reference", type, order, data_array)
+  what_reference(type, order, data_array) if reference_choice == "error"
+  data_array[4] = reference_choice
+
   if order < 3
     order += 1
     what_category(type, order, data_array)
@@ -221,11 +235,35 @@ def get_menu_selection
 end
 
 def receive_gif(data)
-
+  category = data[2], emotion = data[3], reference = data[4]
+=begin
+  urls = Gif.full_query(category, emotion, reference)
+  if urls.length < 1
+=end
+    urls = Gif.backup_query("emotion", emotion)
+    puts "Here's your gifs!"
+    puts urls
+  #end
 end
 
 def insert_gif(data)
+  url = data[1], category = data[2], emotion = data[3], reference = data[4]
+  Gif.new(url, category, emotion, reference).save
+end
 
+def choose_selection(input, print_array, return_method, type, order, data_array)
+  if input.to_i < 0 || input.to_i > (print_array.length + 1)
+    case return_method
+      when "category"
+        what_category(type, order, data_array)
+      when "emotion"
+        what_emotion(type, order, data_array)
+      when "reference"
+        what_reference(type, order, data_array)
+    end
+  else
+    print_array[input.to_i]
+  end
 end
 
 get_menu_selection
