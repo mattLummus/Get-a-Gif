@@ -29,92 +29,30 @@ EOS
 end
 
 def cat_defaults
-<<EOS
-1. Reaction
-2. Abstract
-EOS
+  ["Reaction", "Abstract"]
 end
 
 def emo_defaults
-<<EOS
-1. Happy
-2. Angry
-3. Sad
-4. Approval
-5. Excitement
-6. Sarcasm
-7. Skepticism
-8. Generic
-EOS
+  ["Happy", "Angry", "Sad", "Approval", "Excitement", "Sarcasm", "Skepticism", "Generic"]
 end
 
 def ref_defaults
-<<EOS
-1. Meme
-2. Sports
-3. Politics
-EOS
+  ["Meme", "Sports", "Politics"]
 end
-
-=begin
-def record_desired_outcomes_for(person)
-  Injury.all.each do |injury|
-    puts "What if #{injury.name}?"
-    puts "1. Put me out of my misery."
-    puts "2. Just a flesh wound. Carry on."
-    response = gets.chomp!
-    kill_them = (response == "1")
-    if kill_them
-      puts "We'll kill you if you suffer from #{injury.name}"
-    else
-      puts "We'll let you linger on if you suffer from #{injury.name}"
-    end
-    InjuryOutcome.create_for(person, injury, kill_them)
-  end
-end
-
-def add_person
-  puts "Who do you want to add?"
-  person_name = gets
-  return unless person_name
-  person_name.chomp!
-  person = Person.new(person_name)
-  if person.save
-    puts "#{person.name} has been added."
-    record_desired_outcomes_for(person)
-  else
-    puts person.errors
-    add_person
-  end
-end
-
-def add_injury
-  puts "What is the injury you want to add?"
-  injury_name = gets
-  return unless injury_name
-  injury_name.chomp!
-  injury = Injury.new(injury_name)
-  if injury.save
-    puts "#{injury_name} has been added."
-  else
-    puts injury.errors
-    add_injury
-  end
-end
-=end
 
 def select_criteria
   puts menu_criteria
   criteria = gets
   return unless criteria
   criteria.chomp!
+  data_array = ["get", "none", "", "", ""]
   case criteria
   when "1"
-    what_category("get", 1)
+    what_category("get", 1, data_array)
   when "2"
-    what_emotion("get", 1)
+    what_emotion("get", 1, data_array)
   when "3"
-    what_reference("get", 1)
+    what_reference("get", 1, data_array)
   when "4"
     random_sample
   else
@@ -129,86 +67,102 @@ def enter_url
   return unless url
   url.chomp!
   #pass url and get/give variable
-  what_category("give", 1)
+  data_array = ["give", url, "", "", ""]
+  what_category("give", 1, data_array)
 end
 
-def print_db_tags(tag_type, first_number)
-    tag_array = Gif.all_tags(tag_type)
-    tag_array.each do |tag|
+def print_db_tags(tag_type, print_type)
+    def_array = []
+    db_array = Gif.all_tags(tag_type)
+    if print_type == "give"
+      case tag_type
+        when "category"
+          def_array = cat_defaults
+        when "emotion"
+          def_array = emo_defaults
+        when "reference"
+          def_array = ref_defaults
+      end
+      def_array.concat(db_array)
+    end
+
+    if def_array.length > 0
+      print_array = def_array
+    else
+      print_array = db_array
+    end
+
+    first_number = 1
+    print_array.each do |tag|
       puts "#{first_number}. #{tag}"
       first_number += 1
     end
+    #tag_array
 end
 
-def what_category(type, order)
+def what_category(type, order, data_array)
   puts "What Category?"
-  if type == "give"
-    puts cat_defaults
-    #magic number. Refactor default print statemnts later to avoid this
-    first_number = 3
-  else
-    first_number = 1
-  end
-  print_db_tags("category", first_number) if Gif.count > 0
+  print_db_tags("category", type)
 
   puts "x. New Category" if type == "give"
   category = gets
   return unless category
   category.chomp!
-  new_tag("category", order, "2") if category == "x"
+  new_tag("category", order, "2", data_array) if category == "x"
   if order < 3
     order += 1
-    what_emotion(type, order)
+    what_emotion(type, order, data_array)
   else
-    puts "finish menu and open links"
+    puts "finish menu and open links" #for testing purposes
+    if type == "give"
+      insert_gif(data_array)
+    else
+      receive_gif(data_array)
+    end
   end
 end
 
-def what_emotion(type, order)
+def what_emotion(type, order, data_array)
   puts "What Emotion?"
-  if type == "give"
-    puts emo_defaults
-    #magic number. Refactor default print statemnts later to avoid this
-    first_number = 9
-  else
-    first_number = 1
-  end
-  print_db_tags("emotion", first_number) if Gif.count > 0
+  print_db_tags("emotion", type)
 
   puts "x. New Emotion" if type == "give"
   emotion = gets
   return unless emotion
   emotion.chomp!
-  new_tag("emotion", order, "3") if emotion == "x"
+  new_tag("emotion", order, "3", data_array) if emotion == "x"
   if order < 3
     order += 1
-    what_reference(type, order)
+    what_reference(type, order, data_array)
   else
-    puts "finish menu and open links"
+    puts "finish menu and open links" #for testing purposes
+    if type == "give"
+      insert_gif(data_array)
+    else
+      receive_gif(data_array)
+    end
   end
 end
 
-def what_reference(type, order)
+def what_reference(type, order, data_array)
   puts "What Reference?"
-  if type == "give"
-    puts ref_defaults
-    #magic number. Refactor default print statemnts later to avoid this
-    first_number = 4
-  else
-    first_number = 1
-  end
-  print_db_tags("reference", first_number) if Gif.count > 0
+  print_db_tags("reference", type)
 
   puts "x. New Reference" if type == "give"
   reference = gets
   return unless reference
   reference.chomp!
-  new_tag("reference", order, "1") if reference == "x"
+  new_tag("reference", order, "1", data_array) if reference == "x"
   if order < 3
     order += 1
-    what_category(type, order)
+    what_category(type, order, data_array)
   else
-    puts "finish menu and open links"
+    puts "finish menu and open links" #for testing purposes
+    if type == "give"
+      insert_gif(data_array)
+    else
+      receive_gif(data_array)
+    end
   end
 end
 
@@ -216,7 +170,7 @@ def random_sample
   puts "random sample here"
 end
 
-def new_tag(type, order, next_method)
+def new_tag(type, order, next_method, data_array)
   puts "Enter new #{type}"
   tag_name = gets
   return unless tag_name
@@ -226,14 +180,22 @@ def new_tag(type, order, next_method)
     order += 1
     case next_method
     when "1"
-      what_category("give", order)
+      data_array[4] = tag_name
+      what_category("give", order, data_array)
     when "2"
-      what_emotion("give", order)
+      data_array[2] = tag_name
+      what_emotion("give", order, data_array)
     when "3"
-      what_reference("give", order)
+      data_array[3] = tag_name
+      what_reference("give", order, data_array)
     end
   else
-    puts "finish menu and open links"
+    puts "finish menu and open links" #for testing purposes
+    if type == "give"
+      insert_gif(data_array)
+    else
+      receive_gif(data_array)
+    end
   end
 end
 
@@ -256,6 +218,14 @@ def get_menu_selection
     puts "'#{input}' is not a valid selection"
     get_menu_selection
   end
+end
+
+def receive_gif(data)
+
+end
+
+def insert_gif(data)
+
 end
 
 get_menu_selection
