@@ -112,8 +112,10 @@ def what_category(type, order, data_array)
   category.chomp!
   new_tag("category", order, "2", data_array) if category == "x"
   category_choice = choose_selection(category, print_array, "category", type, order, data_array)
-  what_category(type, order, data_array) if category_choice == "error"
-  data_array[2] = category_choice
+  #what_category(type, order, data_array) if category_choice == "error"
+  #data_array[2] = category_choice
+  data_array[2] = "category"
+  puts data_array[2]
 
   if order < 3
     order += 1
@@ -138,8 +140,10 @@ def what_emotion(type, order, data_array)
   emotion.chomp!
   new_tag("emotion", order, "3", data_array) if emotion == "x"
   emotion_choice = choose_selection(emotion, print_array, "emotion", type, order, data_array)
-  what_emotion(type, order, data_array) if emotion_choice == "error"
-  data_array[3] = emotion_choice
+  #what_emotion(type, order, data_array) if emotion_choice == "error"
+  #data_array[3] = emotion_choice
+  data_array[3] = "emotion"
+  puts data_array[2]
 
   if order < 3
     order += 1
@@ -164,8 +168,10 @@ def what_reference(type, order, data_array)
   reference.chomp!
   new_tag("reference", order, "1", data_array) if reference == "x"
   reference_choice = choose_selection(reference, print_array, "reference", type, order, data_array)
-  what_reference(type, order, data_array) if reference_choice == "error"
-  data_array[4] = reference_choice
+  #what_reference(type, order, data_array) if reference_choice == "error"
+  #data_array[4] = reference_choice
+  data_array[4] = "reference"
+  puts data_array[2]
 
   if order < 3
     order += 1
@@ -236,13 +242,15 @@ end
 
 def receive_gif(data)
   category = data[2], emotion = data[3], reference = data[4]
+  puts data
 =begin
   urls = Gif.full_query(category, emotion, reference)
   if urls.length < 1
 =end
-    urls = Gif.backup_query("emotion", emotion)
-    puts "Here's your gifs!"
-    puts urls
+    puts "Category: #{category}, Emotion: #{emotion}, Reference: #{reference}"
+    #urls = Gif.backup_query("emotion", emotion)
+    #puts "Here's your gifs!"
+    #puts urls
   #end
 end
 
