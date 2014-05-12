@@ -22,7 +22,7 @@ EOS
 end
 
 def emo_defaults
-  ["Happy", "Angry", "Sad", "Approval", "Excitement", "Sarcasm", "Skepticism", "Generic"]
+  ["Happy", "Angry", "Sad", "Approval", "Excitement", "Sarcasm", "Skepticism", "I Cant Even", "Generic"]
 end
 
 def ref_defaults
@@ -85,10 +85,12 @@ def what_emotion(type)
   emotion = gets
   return unless emotion
   emotion.chomp!
-  new_tag("emotion") if emotion == "x"
-
-  @emotion = choose_selection(emotion, print_array, "emotion", type)
-  what_reference(type)
+  if emotion == "x"
+    new_tag("emotion")
+  else
+    @emotion = choose_selection(emotion, print_array, "emotion", type)
+    what_reference(type)
+  end
 end
 
 def what_reference(type)
@@ -99,16 +101,16 @@ def what_reference(type)
   reference = gets
   return unless reference
   reference.chomp!
-  new_tag("reference") if reference == "x"
-
-  @reference = choose_selection(reference, print_array, "reference", type)
-  puts "finish menu and open links" #for testing purposes
-  if type == "give"
-    insert_gif
-    #insert_gif(data_array)
+  if reference == "x"
+    new_tag("reference")
   else
-    receive_gif
-    #receive_gif(data_array)
+    @reference = choose_selection(reference, print_array, "reference", type)
+    puts "finish menu and open links" #for testing purposes
+    if type == "give"
+      insert_gif
+    else
+      receive_gif
+    end
   end
 end
 
@@ -117,7 +119,6 @@ def new_tag(type)
   tag_name = gets
   return unless tag_name
   tag_name.chomp!
-  #database stuff
   case type
   when "emotion"
     @emotion = tag_name
@@ -125,11 +126,7 @@ def new_tag(type)
   when "reference"
     @reference = tag_name
     puts "finish menu and open links" #for testing purposes
-    if type == "give"
-      insert_gif
-    else
-      receive_gif
-    end
+    insert_gif
   end
 end
 
@@ -159,7 +156,9 @@ def receive_gif
   puts "Here's your gifs!"
   urls = Gif.full_query(@emotion, @reference)
   if urls.length < 1
-    urls = Gif.backup_query("emotion", emotion)
+    urls = Gif.backup_query("emotion", @emotion)
+    r_urls = Gif.backup_query("reference", @reference)
+    urls.concat(r_urls)
   end
   puts urls
   open_urls(urls)
