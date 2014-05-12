@@ -10,12 +10,7 @@ What do you want to do?
 2. Give a .gif
 EOS
   end
-  let(:cat_defaults) do
-<<EOS
-1. Reaction
-2. Abstract
-EOS
-  end
+
   let(:emo_defaults) do
 <<EOS
 1. Happy
@@ -28,6 +23,7 @@ EOS
 8. Generic
 EOS
   end
+
   let(:ref_defaults) do
 <<EOS
 1. Meme
@@ -96,50 +92,39 @@ EOS
     end
   end
   context "the get menu should cylce through the different tag options" do
-    let(:shell_output){run_giffer_with_input("1", "1", "1", "1", "1")}
+    let(:shell_output){run_giffer_with_input("1", "1", "1")}
     before do
-      Gif.new("bar.gif", "reaction", "angry", "bar").save
+      Gif.new("bar.gif", "angry", "bar").save
     end
     it "should include the appropriate menu" do
       shell_output.should include ("finish menu and open links")
     end
   end
   context "the get menu should cylce through the different tag options" do
-    let(:shell_output){run_giffer_with_input("1", "2", "1", "1", "1")}
+    let(:shell_output){run_giffer_with_input("1", "1", "1")}
     before do
-      Gif.new("bar.gif", "reaction", "angry", "bar").save
+      Gif.new("bar.gif", "angry", "bar").save
     end
     it "should include the appropriate menu" do
       shell_output.should include ("finish menu and open links")
     end
   end
-  context "the get menu should cylce through the different tag options" do
-    let(:shell_output){run_giffer_with_input("1", "3", "1", "1", "1")}
-    before do
-      Gif.new("bar.gif", "reaction", "angry", "bar").save
-    end
-    it "should include the appropriate menu" do
-      shell_output.should include ("finish menu and open links")
-    end
-  end
-
   context "the give menu should cylce through the different tag options" do
-    let(:shell_output){run_giffer_with_input("2", "url", "1", "1", "1")}
+    let(:shell_output){run_giffer_with_input("2", "url", "1", "1")}
     it "should include the appropriate menu" do
       shell_output.should include ("finish menu and open links")
     end
   end
   context "the give menu should cylce through the different tag options and allow new tags" do
-    let(:shell_output){run_giffer_with_input("2", "url", "x", "reaction", "x", "approval", "x", "batman")}
+    let(:shell_output){run_giffer_with_input("2", "url", "x", "approval", "x", "batman")}
     it "should include the appropriate menu" do
       shell_output.should include ("finish menu and open links")
     end
   end
 
   context "the give menu should show default tags" do
-    let(:shell_output){run_giffer_with_input("2", "url", "1", "1", "1")}
+    let(:shell_output){run_giffer_with_input("2", "url", "1", "1")}
     it "should include the appropriate menu" do
-      shell_output.should include (cat_defaults)
       shell_output.should include (emo_defaults)
       shell_output.should include (ref_defaults)
     end

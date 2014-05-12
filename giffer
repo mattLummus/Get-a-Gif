@@ -8,7 +8,10 @@ require 'gif'
 Environment.environment = ENV["ENVIRONMENT"] || "production"
 $stderr = $stdout
 
-require 'gif'
+@test_var = "test_var"
+@url
+@emotion
+@reference
 
 def menu
 <<EOS
@@ -18,49 +21,16 @@ What do you want to do?
 EOS
 end
 
-def menu_criteria
-<<EOS
-What is your first criteria?
-1. Category
-2. Emotion
-3. Reference
-EOS
-end
-
-def cat_defaults
-  ["Reaction", "Abstract"]
-end
-
 def emo_defaults
   ["Happy", "Angry", "Sad", "Approval", "Excitement", "Sarcasm", "Skepticism", "Generic"]
 end
 
 def ref_defaults
-  ["Meme", "Sports", "Politics"]
+  ["Meme", "Sports", "Politics", "Generic"]
 end
 
 def select_criteria
-  #puts menu_criteria
-  #criteria = gets
-  #return unless criteria
-  #criteria.chomp!
-  data_array = ["get", "none", "", "", ""]
-  what_category("get", 1, data_array)
-=begin
-  case criteria
-  when "1"
-    what_category("get", 1, data_array)
-  when "2"
-    what_emotion("get", 1, data_array)
-  when "3"
-    what_reference("get", 1, data_array)
-  #when "4"
-  #  random_sample
-  else
-    puts "'#{criteria}' is not a valid selection"
-    select_criteria
-  end
-=end
+  what_emotion("get")
 end
 
 def enter_url
@@ -68,69 +38,46 @@ def enter_url
   url = gets
   return unless url
   url.chomp!
-  #pass url and get/give variable
-  data_array = ["give", url, "", "", ""]
-  what_category("give", 1, data_array)
+  @url = url
+  what_emotion("give")
 end
 
 def print_db_tags(tag_type, print_type)
-    def_array = []
-    db_array = Gif.all_tags(tag_type)
+    def_array = [], print_array = [], uniq_array = []
+    temp_db_array = Gif.all.map{ |gif| [gif.url, gif.emotion, gif.reference, gif.id] }
+    count = 1
+
     if print_type == "give"
       case tag_type
-        when "category"
-          def_array = cat_defaults
         when "emotion"
           def_array = emo_defaults
         when "reference"
           def_array = ref_defaults
       end
-      def_array.concat(db_array)
+      def_array.each do |tag|
+        uniq_array << tag
+      end
     end
 
-    if def_array.length > 0
-      print_array = def_array
-    else
-      print_array = db_array
+    temp_db_array.each do |tag|
+      if tag_type == "emotion"
+        tag_text = tag[1]
+      else
+        tag_text = tag[2]
+      end
+      uniq_array << tag_text
     end
 
-    first_number = 1
-    print_array.each do |tag|
-      puts "#{first_number}. #{tag}"
-      first_number += 1
+    uniq_array.uniq!
+    uniq_array.each do |tag|
+      print_array << tag
+      puts "#{count}. #{tag}"
+      count += 1
     end
-    print_array
+    return print_array
 end
 
-def what_category(type, order, data_array)
-  puts "What Category?"
-  print_array = print_db_tags("category", type)
-
-  puts "x. New Category" if type == "give"
-  category = gets
-  return unless category
-  category.chomp!
-  new_tag("category", order, "2", data_array) if category == "x"
-  category_choice = choose_selection(category, print_array, "category", type, order, data_array)
-  #what_category(type, order, data_array) if category_choice == "error"
-  #data_array[2] = category_choice
-  data_array[2] = "category"
-  puts data_array[2]
-
-  if order < 3
-    order += 1
-    what_emotion(type, order, data_array)
-  else
-    puts "finish menu and open links" #for testing purposes
-    if type == "give"
-      insert_gif(data_array)
-    else
-      receive_gif(data_array)
-    end
-  end
-end
-
-def what_emotion(type, order, data_array)
+def what_emotion(type)
   puts "What Emotion?"
   print_array = print_db_tags("emotion", type)
 
@@ -138,27 +85,13 @@ def what_emotion(type, order, data_array)
   emotion = gets
   return unless emotion
   emotion.chomp!
-  new_tag("emotion", order, "3", data_array) if emotion == "x"
-  emotion_choice = choose_selection(emotion, print_array, "emotion", type, order, data_array)
-  #what_emotion(type, order, data_array) if emotion_choice == "error"
-  #data_array[3] = emotion_choice
-  data_array[3] = "emotion"
-  puts data_array[2]
+  new_tag("emotion") if emotion == "x"
 
-  if order < 3
-    order += 1
-    what_reference(type, order, data_array)
-  else
-    puts "finish menu and open links" #for testing purposes
-    if type == "give"
-      insert_gif(data_array)
-    else
-      receive_gif(data_array)
-    end
-  end
+  @emotion = choose_selection(emotion, print_array, "emotion", type)
+  what_reference(type)
 end
 
-def what_reference(type, order, data_array)
+def what_reference(type)
   puts "What Reference?"
   print_array = print_db_tags("reference", type)
 
@@ -166,55 +99,36 @@ def what_reference(type, order, data_array)
   reference = gets
   return unless reference
   reference.chomp!
-  new_tag("reference", order, "1", data_array) if reference == "x"
-  reference_choice = choose_selection(reference, print_array, "reference", type, order, data_array)
-  #what_reference(type, order, data_array) if reference_choice == "error"
-  #data_array[4] = reference_choice
-  data_array[4] = "reference"
-  puts data_array[2]
+  new_tag("reference") if reference == "x"
 
-  if order < 3
-    order += 1
-    what_category(type, order, data_array)
+  @reference = choose_selection(reference, print_array, "reference", type)
+  puts "finish menu and open links" #for testing purposes
+  if type == "give"
+    insert_gif
+    #insert_gif(data_array)
   else
-    puts "finish menu and open links" #for testing purposes
-    if type == "give"
-      insert_gif(data_array)
-    else
-      receive_gif(data_array)
-    end
+    receive_gif
+    #receive_gif(data_array)
   end
 end
 
-def random_sample
-  puts "random sample here"
-end
-
-def new_tag(type, order, next_method, data_array)
+def new_tag(type)
   puts "Enter new #{type}"
   tag_name = gets
   return unless tag_name
   tag_name.chomp!
   #database stuff
-  if order < 3
-    order += 1
-    case next_method
-    when "1"
-      data_array[4] = tag_name
-      what_category("give", order, data_array)
-    when "2"
-      data_array[2] = tag_name
-      what_emotion("give", order, data_array)
-    when "3"
-      data_array[3] = tag_name
-      what_reference("give", order, data_array)
-    end
-  else
+  case type
+  when "emotion"
+    @emotion = tag_name
+    what_reference("give")
+  when "reference"
+    @reference = tag_name
     puts "finish menu and open links" #for testing purposes
     if type == "give"
-      insert_gif(data_array)
+      insert_gif
     else
-      receive_gif(data_array)
+      receive_gif
     end
   end
 end
@@ -240,37 +154,51 @@ def get_menu_selection
   end
 end
 
-def receive_gif(data)
-  category = data[2], emotion = data[3], reference = data[4]
-  puts data
-=begin
-  urls = Gif.full_query(category, emotion, reference)
+def receive_gif
+  puts "Emotion: #{@emotion}, Reference: #{@reference}"
+  puts "Here's your gifs!"
+  urls = Gif.full_query(@emotion, @reference)
   if urls.length < 1
-=end
-    puts "Category: #{category}, Emotion: #{emotion}, Reference: #{reference}"
-    #urls = Gif.backup_query("emotion", emotion)
-    #puts "Here's your gifs!"
-    #puts urls
-  #end
+    urls = Gif.backup_query("emotion", emotion)
+  end
+  puts urls
+  open_urls(urls)
 end
 
-def insert_gif(data)
-  url = data[1], category = data[2], emotion = data[3], reference = data[4]
-  Gif.new(url, category, emotion, reference).save
+def insert_gif
+  puts "url: #{@url}, emotion: #{@emotion}, reference: #{@reference}"
+  Gif.new(@url, @emotion, @reference).save
 end
 
-def choose_selection(input, print_array, return_method, type, order, data_array)
-  if input.to_i < 0 || input.to_i > (print_array.length + 1)
-    case return_method
-      when "category"
-        what_category(type, order, data_array)
+def open_urls(urls)
+  temp_array = urls.map{ |gif| [gif.url, gif.emotion, gif.reference, gif.id] }
+  url_array = []
+  temp_array.each do |gif|
+    url_array << gif[0]
+  end
+  puts url_array
+  url_array.each do |url|
+    IO.popen('open -a Google\ Chrome '+url, 'r+') do |pipe|
+      pipe.close_write
+    end
+  end
+end
+
+# ex. tag_type = emotion/reference, action_type = get/give
+def choose_selection(input, print_array, tag_type, action_type)
+  input = input.to_i - 1
+  if input < 0 || input > (print_array.length - 1)
+    puts "Invalid selection. Please select again."
+    case tag_type
       when "emotion"
-        what_emotion(type, order, data_array)
+        what_emotion(action_type)
       when "reference"
-        what_reference(type, order, data_array)
+        what_reference(action_type)
     end
   else
-    print_array[input.to_i]
+    puts "print array[input]:"
+    puts print_array[input]
+    return print_array[input]
   end
 end
 

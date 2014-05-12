@@ -1,14 +1,13 @@
-class Gif
+#require 'active_record'
+class Gif #< ActiveRecord::Base
   attr_reader :errors
   attr_reader :id
   attr_accessor :url
-  attr_accessor :category
   attr_accessor :emotion
   attr_accessor :reference
 
-  def initialize(url, category, emotion, reference)
+  def initialize(url, emotion, reference)
     @url = url
-    @category = category
     @emotion = emotion
     @reference = reference
   end
@@ -23,8 +22,8 @@ class Gif
     execute_and_instantiate(statement)
   end
 
-  def self.full_query(category, emotion, reference)
-    statement = "Select url from gifs where category = '#{category}' AND emotion = '#{emotion}' AND reference = '#{reference}'"
+  def self.full_query(emotion, reference)
+    statement = "Select url from gifs where emotion = '#{emotion}' AND reference = '#{reference}'"
     execute_and_instantiate(statement)
   end
 
@@ -39,8 +38,8 @@ class Gif
     result[0][0]
   end
 
-  def self.create(url, category, emotion, reference)
-    gif = Gif.new(url, category, emotion, reference)
+  def self.create(url, emotion, reference)
+    gif = Gif.new(url, emotion, reference)
     gif.save
     gif
   end
@@ -57,16 +56,10 @@ class Gif
   end
 
   def save
-    #if self.valid?
-      #statement = "Insert into gifs (url, category, emotion, reference) values (?);"
-      #Environment.database_connection.execute(statement, url, category, emotion, reference)
-      statement = "Insert into gifs (url, category, emotion, reference) values ('#{url}', '#{category}', '#{emotion}', '#{reference}');"
+      statement = "Insert into gifs (url, emotion, reference) values ('#{url}', '#{emotion}', '#{reference}');"
       Environment.database_connection.execute(statement)
       @id = Environment.database_connection.execute("SELECT last_insert_rowid();")[0][0]
       true
-    #else
-    #  false
-    #end
   end
 
 =begin
@@ -88,7 +81,7 @@ class Gif
     rows = Environment.database_connection.execute(statement, bind_vars)
     results = []
     rows.each do |row|
-      gif = Gif.new(row["url"], row["category"], row["emotion"], row["reference"])
+      gif = Gif.new(row["url"], row["emotion"], row["reference"])
       gif.instance_variable_set(:@id, row["id"])
       results << gif
     end
