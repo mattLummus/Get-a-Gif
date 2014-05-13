@@ -117,7 +117,11 @@ def what_emotion(type)
     end
   else
     @emotion = choose_selection(emotion, print_array, "emotion", type)
-    what_reference(type)
+    if type == "update"
+      return @emotion
+    else
+      what_reference(type)
+    end
   end
 end
 
@@ -143,6 +147,9 @@ def what_reference(type)
     end
   else
     @reference = choose_selection(reference, print_array, "reference", type)
+    if type == "update"
+      return @reference
+    end
     puts "finish menu and open links" #for testing purposes
     if type == "give"
       insert_gif
@@ -286,14 +293,17 @@ def update_gif_menu
         @url = quick_input
         #db stuff
         Gif.update_gif("url", @url, id)
+        update_gif_menu
       elsif input == "2"
         @emotion = what_emotion("update")
         Gif.update_gif("emotion", @emotion, id)
+        update_gif_menu
       elsif input == "3"
         @reference = what_reference("update")
         Gif.update_gif("reference", @reference, id)
+        update_gif_menu
       elsif input == "4"
-        puts "Update canceled"
+        puts "Update exited"
         get_menu_selection
       else
         puts "'#{input}' is not a valid selection"
