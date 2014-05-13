@@ -75,6 +75,16 @@ class Gif #< ActiveRecord::Base
   end
 =end
 
+  def self.remove_gif(url)
+    statement = "DELETE FROM gifs WHERE url = '#{url}';"
+    Environment.database_connection.execute(statement)
+  end
+
+  def self.update_gif(attribute, new_var, id)
+    statement = "UPDATE gifs SET #{attribute} = '#{new_var}' where id = #{id};"
+    Environment.database_connection.execute(statement)
+  end
+
   private
 
   def self.execute_and_instantiate(statement, bind_vars = [])

@@ -428,3 +428,180 @@ I, [2014-05-13T11:30:40.887737 #30391]  INFO -- : Executing: Select count(*) fro
 I, [2014-05-13T11:30:40.888753 #30391]  INFO -- : Executing: Select * from gifs; with: []
 I, [2014-05-13T11:30:42.110709 #30391]  INFO -- : Executing: Select * from gifs; with: []
 I, [2014-05-13T11:30:43.126738 #30391]  INFO -- : Executing: Select url from gifs where emotion = 'Skepticism' AND reference = 'Generic' with: []
+I, [2014-05-13T11:33:47.492559 #30426]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:33:47.493307 #30426]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:04.317145 #30428]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:21.254206 #30428]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:32.382655 #30428]  INFO -- : Executing: Insert into gifs (url, emotion, reference) values ('https://i.imgur.com/0NsXBuf.gif', 'Sad', 'Foreign Film'); with: []
+I, [2014-05-13T11:34:32.389813 #30428]  INFO -- : Executing: SELECT last_insert_rowid(); with: []
+I, [2014-05-13T11:34:36.054377 #30433]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:34:36.055220 #30433]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:43.545020 #30433]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:44.888887 #30433]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' AND reference = 'Foreign Film' with: []
+I, [2014-05-13T11:34:51.505167 #30436]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:34:51.505995 #30436]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:53.504646 #30436]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:34:57.789252 #30436]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' AND reference = 'Sesame Street' with: []
+I, [2014-05-13T11:34:57.789810 #30436]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' with: []
+I, [2014-05-13T11:34:57.790139 #30436]  INFO -- : Executing: Select url from gifs where reference = 'Sesame Street' with: []
+I, [2014-05-13T11:35:38.117148 #30442]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:35:38.118083 #30442]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:35:42.196787 #30442]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:35:46.196832 #30442]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' AND reference = 'Marvel' with: []
+I, [2014-05-13T11:35:53.837037 #30445]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:35:53.837973 #30445]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:35:55.100238 #30445]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:35:56.484116 #30445]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' AND reference = 'Sesame Street' with: []
+I, [2014-05-13T11:36:15.813770 #30450]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:36:15.814567 #30450]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:36:17.020889 #30450]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T11:36:20.589765 #30450]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' AND reference = 'Generic' with: []
+I, [2014-05-13T11:36:20.590270 #30450]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []
+I, [2014-05-13T11:36:20.590584 #30450]  INFO -- : Executing: Select url from gifs where reference = 'Generic' with: []
+I, [2014-05-13T12:18:19.143033 #31150]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:18:19.145393 #31150]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:18:20.146565 #31150]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:18:22.794540 #31150]  INFO -- : Executing: Select url from gifs where emotion = 'Skepticism' with: []
+I, [2014-05-13T12:18:32.778362 #31157]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:18:32.779031 #31157]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:18:35.529546 #31157]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:18:43.145361 #31157]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []
+I, [2014-05-13T12:20:08.736668 #31165]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:20:08.737341 #31165]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:21:28.335741 #31168]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:22:29.132829 #31168]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:22:46.284036 #31168]  INFO -- : Executing: Insert into gifs (url, emotion, reference) values ('https://i.imgur.com/D9lWM.gif', 'Trolololo', 'Generic'); with: []
+I, [2014-05-13T12:22:46.580296 #31168]  INFO -- : Executing: SELECT last_insert_rowid(); with: []
+I, [2014-05-13T12:22:49.205329 #31175]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:22:49.206236 #31175]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:23:14.229225 #31177]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:23:28.755031 #31177]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:23:35.283189 #31177]  INFO -- : Executing: Insert into gifs (url, emotion, reference) values ('https://i.imgur.com/8dFyy9Q.gif', 'Happy', 'Game of Thrones'); with: []
+I, [2014-05-13T12:23:35.289741 #31177]  INFO -- : Executing: SELECT last_insert_rowid(); with: []
+I, [2014-05-13T12:23:53.827747 #31183]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:23:53.828415 #31183]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:24:02.418434 #31183]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:24:05.458771 #31183]  INFO -- : Executing: Select url from gifs where emotion = 'Happy' AND reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:24:12.179425 #31186]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:24:12.180261 #31186]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:25:05.609920 #31187]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:25:05.610581 #31187]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:25:08.193293 #31187]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:25:10.049616 #31187]  INFO -- : Executing: Select url from gifs where emotion = 'Trolololo' AND reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:25:10.050104 #31187]  INFO -- : Executing: Select url from gifs where emotion = 'Trolololo' with: []
+I, [2014-05-13T12:25:10.050414 #31187]  INFO -- : Executing: Select url from gifs where reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:26:28.648523 #31196]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:26:28.649181 #31196]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:26:31.927538 #31196]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:26:33.703387 #31196]  INFO -- : Executing: Select url from gifs where emotion = 'Trolololo' AND reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:26:33.703833 #31196]  INFO -- : Executing: Select url from gifs where emotion = 'Trolololo' with: []
+I, [2014-05-13T12:26:33.704142 #31196]  INFO -- : Executing: Select url from gifs where reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:27:18.127000 #31203]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:27:18.127672 #31203]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:27:20.462494 #31203]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:27:21.678312 #31203]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' AND reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:27:21.678685 #31203]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' with: []
+I, [2014-05-13T12:27:21.678912 #31203]  INFO -- : Executing: Select url from gifs where reference = 'Game of Thrones' with: []
+I, [2014-05-13T12:27:29.870312 #31203]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:27:29.870967 #31203]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:27:56.142162 #31208]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:27:56.142811 #31208]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:27:58.229716 #31208]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:27:59.453770 #31208]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' AND reference = 'Marvel' with: []
+I, [2014-05-13T12:27:59.454253 #31208]  INFO -- : Executing: Select url from gifs where emotion = 'Sad' with: []
+I, [2014-05-13T12:27:59.454572 #31208]  INFO -- : Executing: Select url from gifs where reference = 'Marvel' with: []
+I, [2014-05-13T12:28:07.685473 #31208]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T12:28:07.686207 #31208]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:28:13.501376 #31208]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T12:28:18.293319 #31208]  INFO -- : Executing: Select url from gifs where emotion = 'Happy' AND reference = 'Generic' with: []
+I, [2014-05-13T12:28:18.293750 #31208]  INFO -- : Executing: Select url from gifs where emotion = 'Happy' with: []
+I, [2014-05-13T12:28:18.294047 #31208]  INFO -- : Executing: Select url from gifs where reference = 'Generic' with: []
+I, [2014-05-13T13:25:42.036338 #31378]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T13:45:19.442284 #31494]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:45:50.537596 #31495]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:46:09.536924 #31497]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T13:46:11.416136 #31497]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T13:46:12.376349 #31497]  INFO -- : Executing: Insert into gifs (url, emotion, reference) values ('https://i.imgur.com/qIliucE.gif?1', 'Happy', 'Meme'); with: []
+I, [2014-05-13T13:46:12.383522 #31497]  INFO -- : Executing: SELECT last_insert_rowid(); with: []
+I, [2014-05-13T13:46:18.431820 #31497]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:53:51.231076 #31512]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:54:18.390220 #31518]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:54:48.605781 #31519]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:55:27.916974 #31521]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:56:26.738610 #31522]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:57:50.193464 #31524]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:58:43.072205 #31526]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T13:58:55.935994 #31527]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T14:00:28.262044 #31810]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T14:00:28.262868 #31810]  INFO -- : Executing: DELETE FROM gifs WHERE url = https://i.imgur.com/qIliucE.gif?1; with: []
+I, [2014-05-13T14:01:03.965055 #31811]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/qIliucE.gif?1
+I, [2014-05-13T14:01:03.966068 #31811]  INFO -- : Executing: DELETE FROM gifs WHERE url = 'https://i.imgur.com/qIliucE.gif?1'; with: []
+I, [2014-05-13T14:01:16.404976 #31815]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:01:16.405735 #31815]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:04:15.289117 #31821]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:04:15.289827 #31821]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:04:17.607475 #31821]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:04:21.479845 #31821]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []
+I, [2014-05-13T14:04:31.095689 #31821]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:04:31.096508 #31821]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:04:33.751294 #31821]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:04:35.455880 #31821]  INFO -- : Executing: Select url from gifs where emotion = 'Happy' with: []
+I, [2014-05-13T14:06:55.893250 #31838]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:06:55.893964 #31838]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:06:57.492498 #31838]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:06:59.220426 #31838]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []
+I, [2014-05-13T14:11:44.414450 #31852]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:12:43.165624 #31853]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:13:01.829190 #31854]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:15:29.938060 #31859]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:35:51.942731 #31893]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:36:26.574079 #31894]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:36:26.575031 #31894]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:45:20.791974 #31921]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:45:30.127509 #31929]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:45:53.815621 #31932]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:46:31.078531 #31932]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:47:22.366291 #31933]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:47:45.678098 #31936]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/HWPhops.jpg
+I, [2014-05-13T14:48:04.110072 #31937]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:48:04.110772 #31937]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:48:04.765061 #31937]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:48:05.180968 #31937]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' AND reference = 'Sesame Street' with: []
+I, [2014-05-13T14:48:12.756813 #31937]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:49:04.108543 #31941]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:50:04.592463 #31941]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:50:15.383919 #31943]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:50:57.633501 #31944]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:51:32.271214 #31946]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:53:20.193469 #31948]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:54:06.247673 #31950]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:57:10.350406 #31954]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:57:13.805406 #31954]  INFO -- : Executing: UPDATE gifs SET url = https://i.imgur.com/6jkyNQg.gif where id = 4; with: []
+I, [2014-05-13T14:57:43.069548 #31955]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T14:57:44.932920 #31955]  INFO -- : Executing: UPDATE gifs SET url = 'https://i.imgur.com/6jkyNQg.gif' where id = 4; with: []
+I, [2014-05-13T14:57:49.525323 #31957]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T14:57:49.526278 #31957]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T14:57:57.116786 #31958]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T15:12:30.820448 #32009]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T15:12:30.821178 #32009]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:31.627874 #32009]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:32.131947 #32009]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' AND reference = 'Sesame Street' with: []
+I, [2014-05-13T15:12:40.227789 #32009]  INFO -- : Executing: Select * from gifs where url = ?; with: https://i.imgur.com/6jkyNQg.gif
+I, [2014-05-13T15:12:44.131678 #32009]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:47.995405 #32009]  INFO -- : Executing: UPDATE gifs SET emotion = 'What Even' where id = 4; with: []
+I, [2014-05-13T15:12:51.596251 #32013]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T15:12:51.597050 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:52.723241 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:54.683660 #32013]  INFO -- : Executing: Select url from gifs where emotion = 'What Even' AND reference = 'Sesame Street' with: []
+I, [2014-05-13T15:12:57.819317 #32013]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T15:12:57.820066 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:12:59.523226 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:13:04.227028 #32013]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []
+I, [2014-05-13T15:13:08.706838 #32013]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T15:13:08.707463 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:13:09.922508 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:13:12.498498 #32013]  INFO -- : Executing: Select url from gifs where emotion = 'What Even' with: []
+I, [2014-05-13T15:13:16.050805 #32013]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T15:13:16.051564 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:13:18.002720 #32013]  INFO -- : Executing: Select * from gifs; with: []
+I, [2014-05-13T15:13:19.034352 #32013]  INFO -- : Executing: Select url from gifs where emotion = 'I Cant Even' with: []

@@ -15,9 +15,13 @@ $stderr = $stdout
 
 def menu
 <<EOS
+------------------------------------------
 What do you want to do?
 1. Get a .gif
 2. Give a .gif
+3. Update a .gif
+4. Delete a .gif
+5. Exit
 EOS
 end
 
@@ -26,20 +30,39 @@ def emo_defaults
 end
 
 def ref_defaults
-  ["Meme", "Sports", "Politics", "Generic"]
+  ["Meme", "Sports", "Politics"]
 end
 
-def select_criteria
-  what_emotion("get")
+def update_menu
+<<EOS
+
+What do you want to update?
+1. url
+2. Emotion
+3. Reference
+4. [Cancel Update]
+EOS
 end
 
-def enter_url
+def delete_menu
+<<EOS
+Do you really wish to delete this .gif?
+1. Yes
+2. No
+EOS
+end
+
+def enter_url(type)
   puts "Enter your url:"
-  url = gets
-  return unless url
-  url.chomp!
-  @url = url
-  what_emotion("give")
+  @url = quick_input
+  case type
+  when "give"
+    what_emotion(type)
+  when "update"
+    update_gif_menu
+  when "delete"
+    delete_gif
+  end
 end
 
 def print_db_tags(tag_type, print_type)
@@ -47,7 +70,7 @@ def print_db_tags(tag_type, print_type)
     temp_db_array = Gif.all.map{ |gif| [gif.url, gif.emotion, gif.reference, gif.id] }
     count = 1
 
-    if print_type == "give"
+    if print_type == "give" || print_type == "update"
       case tag_type
         when "emotion"
           def_array = emo_defaults
@@ -81,12 +104,17 @@ def what_emotion(type)
   puts "What Emotion?"
   print_array = print_db_tags("emotion", type)
 
-  puts "x. New Emotion" if type == "give"
-  emotion = gets
-  return unless emotion
-  emotion.chomp!
+  if type == "give" || type == "update"
+    puts "x. New Emotion" if type == "give" || type == "update"
+  end
+  emotion = quick_input
   if emotion == "x"
-    new_tag("emotion")
+    if type == "give"
+      new_tag("emotion", type)
+    elsif type == "update"
+      ret_emotion = new_tag("emotion", type)
+      return ret_emotion
+    end
   else
     @emotion = choose_selection(emotion, print_array, "emotion", type)
     what_reference(type)
@@ -97,12 +125,22 @@ def what_reference(type)
   puts "What Reference?"
   print_array = print_db_tags("reference", type)
 
-  puts "x. New Reference" if type == "give"
-  reference = gets
-  return unless reference
-  reference.chomp!
+  if type == "give" || type == "update"
+    puts "x. New Reference"
+  else
+    puts "x. Any Reference"
+  end
+  reference = quick_input
   if reference == "x"
-    new_tag("reference")
+    if type == "give"
+      new_tag("reference", type)
+    elsif type == "update"
+      ret_reference = new_tag("reference", type)
+      return ret_reference
+    else
+      @reference = "any"
+      receive_gif
+    end
   else
     @reference = choose_selection(reference, print_array, "reference", type)
     puts "finish menu and open links" #for testing purposes
@@ -114,21 +152,29 @@ def what_reference(type)
   end
 end
 
-def new_tag(type)
-  puts "Enter new #{type}"
-  tag_name = gets
-  return unless tag_name
-  tag_name.chomp!
-  case type
+def new_tag(tag_type, action_type)
+  puts "Enter new #{tag_type}"
+  tag_name = quick_input
+  case tag_type
   when "emotion"
     puts ""
     @emotion = tag_name
-    what_reference("give")
+    if action_type == "give"
+      what_reference("give")
+    else
+      #for update
+      return @emotion
+    end
   when "reference"
     puts ""
     @reference = tag_name
-    puts "finish menu and open links" #for testing purposes
-    insert_gif
+    if action_type == "give"
+      puts "finish menu and open links" #for testing purposes
+      insert_gif
+    else
+      #for update
+      return @reference
+    end
   end
 end
 
@@ -136,20 +182,28 @@ end
 # Read - Eval - Print Loop
 def get_menu_selection
   puts menu
-  input = gets
-  return unless input
-  input.chomp!
+  input = quick_input
   if input == "1"
     if Gif.count > 0
       puts ""
-      select_criteria
+      what_emotion("get")
     else
       puts "No gifs in database. Please insert one first."
       get_menu_selection
     end
   elsif input == "2"
     puts ""
-    enter_url
+    enter_url("give")
+  elsif input == "3"
+    puts ""
+    enter_url("update")
+  elsif input == "4"
+    puts ""
+    enter_url("delete")
+  elsif input == "5"
+    puts ""
+    puts "Goodbye!"
+    puts ""
   else
     puts "'#{input}' is not a valid selection"
     get_menu_selection
@@ -160,11 +214,18 @@ def receive_gif
   puts "Emotion: #{@emotion}, Reference: #{@reference}"
   puts ""
   puts "Here's your gifs!"
-  urls = Gif.full_query(@emotion, @reference)
-  if urls.length < 1
+  #only selects via emotions (emotion is from DB so should return at least 1 no matter what)
+  if @reference == "any"
     urls = Gif.backup_query("emotion", @emotion)
-    r_urls = Gif.backup_query("reference", @reference)
-    urls.concat(r_urls)
+  else
+    #selects via both tags (joined)
+    urls = Gif.full_query(@emotion, @reference)
+    if urls.length < 1
+      #if nothing returns selects via both tags (seperately)
+      urls = Gif.backup_query("emotion", @emotion)
+      r_urls = Gif.backup_query("reference", @reference)
+      urls.concat(r_urls)
+    end
   end
   open_urls(urls)
 end
@@ -172,6 +233,8 @@ end
 def insert_gif
   puts "url: #{@url}, emotion: #{@emotion}, reference: #{@reference}"
   Gif.new(@url, @emotion, @reference).save
+  puts ""
+  get_menu_selection
 end
 
 def open_urls(urls)
@@ -186,6 +249,8 @@ def open_urls(urls)
       pipe.close_write
     end
   end
+  puts ""
+  get_menu_selection
 end
 
 # ex. tag_type = emotion/reference, action_type = get/give
@@ -203,6 +268,81 @@ def choose_selection(input, print_array, tag_type, action_type)
     puts print_array[input]
     puts ""
     return print_array[input]
+  end
+end
+
+def update_gif_menu
+    gifs = Gif.find_by_tag("url", @url)
+    gif_count = gifs.length
+    if gif_count > 0
+      gif = gifs.map{ |gif| [gif.url, gif.emotion, gif.reference, gif.id] }
+      gif = gif[0]
+      id = gif[3]
+      print_gif(gif)
+      puts update_menu
+      input = quick_input
+      if input == "1"
+        puts "Enter new url:"
+        @url = quick_input
+        #db stuff
+        Gif.update_gif("url", @url, id)
+      elsif input == "2"
+        @emotion = what_emotion("update")
+        Gif.update_gif("emotion", @emotion, id)
+      elsif input == "3"
+        @reference = what_reference("update")
+        Gif.update_gif("reference", @reference, id)
+      elsif input == "4"
+        puts "Update canceled"
+        get_menu_selection
+      else
+        puts "'#{input}' is not a valid selection"
+        update_gif
+      end
+    else
+      puts ""
+      puts "No .gifs were found in database. Try another url."
+      get_menu_selection
+    end
+end
+
+def quick_input
+  input = gets
+  return unless input
+  input.chomp!
+  return input
+end
+
+def print_gif(gif)
+puts ""
+puts "Here's your gif"
+puts "url: #{gif[0]}"
+puts "Emotion: #{gif[1]}"
+puts "Reference: #{gif[2]}"
+puts "id: #{gif[3]}"
+end
+
+def delete_gif
+  puts delete_menu
+  input = quick_input
+  if input == "1"
+    gifs = Gif.find_by_tag("url", @url)
+    gif_count = gifs.length
+    if gif_count > 0
+      Gif.remove_gif(@url)
+      puts "   '#{gif_count} .gif was deleted'" if gif_count == 1
+      puts "   '#{gif_count} .gifs were deleted'" if gif_count > 1
+      get_menu_selection
+    else
+      puts "No .gifs were found in database. Try another url."
+      get_menu_selection
+    end
+  elsif input == "2"
+    puts "Deletion canceled."
+    get_menu_selection
+  else
+    puts "#{input} is not a valid selection"
+    delete_gif
   end
 end
 
