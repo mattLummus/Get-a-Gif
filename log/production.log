@@ -126,3 +126,7 @@ I, [2014-05-12T09:20:59.991016 #15841]  INFO -- : Executing: Select count(*) fro
 I, [2014-05-12T09:20:59.991754 #15841]  INFO -- : Executing: Select category from gifs; with: []
 I, [2014-05-12T09:21:00.237091 #15841]  INFO -- : Executing: Select emotion from gifs; with: []
 I, [2014-05-12T09:21:00.477141 #15841]  INFO -- : Executing: Select reference from gifs; with: []
+I, [2014-05-13T11:21:39.572257 #30242]  INFO -- : Executing: Select count(*) from gifs; with: []
+I, [2014-05-13T11:21:39.572939 #30242]  INFO -- : Executing: Select category from gifs; with: []
+I, [2014-05-13T11:21:40.811241 #30242]  INFO -- : Executing: Select emotion from gifs; with: []
+I, [2014-05-13T11:21:41.411660 #30242]  INFO -- : Executing: Select reference from gifs; with: []
