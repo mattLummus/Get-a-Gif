@@ -1,5 +1,6 @@
-#require 'active_record'
-class Gif #< ActiveRecord::Base
+require 'database'
+require 'active_record'
+class Gif < ActiveRecord::Base
   attr_reader :errors
   attr_reader :id
   attr_accessor :url

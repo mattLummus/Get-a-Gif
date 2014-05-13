@@ -29,10 +29,6 @@ def ref_defaults
   ["Meme", "Sports", "Politics", "Generic"]
 end
 
-def select_criteria
-  what_emotion("get")
-end
-
 def enter_url
   puts "Enter your url:"
   url = gets
@@ -74,10 +70,12 @@ def print_db_tags(tag_type, print_type)
       puts "#{count}. #{tag}"
       count += 1
     end
+    puts ""
     return print_array
 end
 
 def what_emotion(type)
+  puts ""
   puts "What Emotion?"
   print_array = print_db_tags("emotion", type)
 
@@ -94,10 +92,12 @@ def what_emotion(type)
 end
 
 def what_reference(type)
+  puts ""
   puts "What Reference?"
   print_array = print_db_tags("reference", type)
 
   puts "x. New Reference" if type == "give"
+  puts ""
   reference = gets
   return unless reference
   reference.chomp!
@@ -116,6 +116,7 @@ end
 
 def new_tag(type)
   puts "Enter new #{type}"
+  puts ""
   tag_name = gets
   return unless tag_name
   tag_name.chomp!
@@ -125,6 +126,7 @@ def new_tag(type)
     what_reference("give")
   when "reference"
     @reference = tag_name
+    puts ""
     puts "finish menu and open links" #for testing purposes
     insert_gif
   end
@@ -139,7 +141,7 @@ def get_menu_selection
   input.chomp!
   if input == "1"
     if Gif.count > 0
-      select_criteria
+      what_emotion("get")
     else
       puts "No gifs in database. Please insert one first."
     end
@@ -152,6 +154,7 @@ def get_menu_selection
 end
 
 def receive_gif
+  puts ""
   puts "Emotion: #{@emotion}, Reference: #{@reference}"
   puts "Here's your gifs!"
   urls = Gif.full_query(@emotion, @reference)
@@ -160,11 +163,11 @@ def receive_gif
     r_urls = Gif.backup_query("reference", @reference)
     urls.concat(r_urls)
   end
-  puts urls
   open_urls(urls)
 end
 
 def insert_gif
+  puts ""
   puts "url: #{@url}, emotion: #{@emotion}, reference: #{@reference}"
   Gif.new(@url, @emotion, @reference).save
 end
@@ -187,6 +190,7 @@ end
 def choose_selection(input, print_array, tag_type, action_type)
   input = input.to_i - 1
   if input < 0 || input > (print_array.length - 1)
+    puts ""
     puts "Invalid selection. Please select again."
     case tag_type
       when "emotion"
@@ -195,8 +199,6 @@ def choose_selection(input, print_array, tag_type, action_type)
         what_reference(action_type)
     end
   else
-    puts "print array[input]:"
-    puts print_array[input]
     return print_array[input]
   end
 end

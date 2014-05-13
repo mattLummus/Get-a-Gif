@@ -1,0 +1,11 @@
+production:
+  adapter: sqlite3
+  database: db/get_a_gif_production.sqlite3
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: db/get_a_gif_test.sqlite3
+  pool: 5
+  timeout: 5000

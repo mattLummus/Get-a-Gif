@@ -71,18 +71,17 @@ describe Gif do
     end
   end
 
-=begin
   context ".last" do
     context "with no gifs in the database" do
       it "should return 0" do
-        Gif.find_by_tag("category", "reaction")[0].should be_nil
+        Gif.find_by_tag("emotion", "happy")[0].should be_nil
       end
     end
     context "with gif by that tag in the database" do
-      let(:baz){ Gif.new("baz.gif", "abstract", "generic", "baz") }
+      let(:baz){ Gif.new("baz.gif", "generic", "baz") }
       before do
-        Gif.new("bar.gif", "reaction", "angry", "bar").save
-        Gif.new("foo.gif", "reaction", "happy", "foo").save
+        Gif.new("bar.gif", "angry", "baz").save
+        Gif.new("foo.gif", "happy", "foo").save
         baz.save
       end
       it "should return the last one inserted" do
@@ -93,76 +92,8 @@ describe Gif do
       end
     end
   end
-=end
 
 =begin
-  context "#new" do
-    let(:injury){ Injury.new("impalement, 1/2 inch diameter or smaller") }
-    it "should store the name" do
-      injury.name.should == "impalement, 1/2 inch diameter or smaller"
-    end
-  end
-
-  context "#create" do
-    let(:result){ Environment.database_connection.execute("Select * from injuries") }
-    let(:injury){ Injury.create("foo") }
-    context "with a valid injury" do
-      before do
-        Injury.any_instance.stub(:valid?){ true }
-        injury
-      end
-      it "should record the new id" do
-        result[0]["id"].should == injury.id
-      end
-      it "should only save one row to the database" do
-        result.count.should == 1
-      end
-      it "should actually save it to the database" do
-        result[0]["name"].should == "foo"
-      end
-    end
-    context "with an invalid injury" do
-      before do
-        Injury.any_instance.stub(:valid?){ false }
-        injury
-      end
-      it "should not save a new injury" do
-        result.count.should == 0
-      end
-    end
-  end
-
-  context "#save" do
-    let(:result){ Environment.database_connection.execute("Select * from injuries") }
-    let(:injury){ Injury.new("foo") }
-    context "with a valid injury" do
-      before do
-        injury.stub(:valid?){ true }
-      end
-      it "should only save one row to the database" do
-        injury.save
-        result.count.should == 1
-      end
-      it "should record the new id" do
-        injury.save
-        injury.id.should == result[0]["id"]
-      end
-      it "should actually save it to the database" do
-        injury.save
-        result[0]["name"].should == "foo"
-      end
-    end
-    context "with an invalid injury" do
-      before do
-        injury.stub(:valid?){ false }
-      end
-      it "should not save a new injury" do
-        injury.save
-        result.count.should == 0
-      end
-    end
-  end
-
   context "#valid?" do
     let(:result){ Environment.database_connection.execute("Select name from injuries") }
     context "after fixing the errors" do

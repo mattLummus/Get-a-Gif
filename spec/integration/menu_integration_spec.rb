@@ -20,7 +20,8 @@ EOS
 5. Excitement
 6. Sarcasm
 7. Skepticism
-8. Generic
+8. I Cant Even
+9. Generic
 EOS
   end
 
@@ -40,14 +41,6 @@ EOS
     end
   end
 #refactored to stop menu if no gifs in DB
-=begin
-  context "the user selects 1" do
-    let(:shell_output){ run_giffer_with_input("1") }
-    it "should print the next menu" do
-      shell_output.should include("What is your first criteria?")
-    end
-  end
-=end
   context "the user selects 2" do
     let(:shell_output){ run_giffer_with_input("2") }
     it "should print the next menu" do
