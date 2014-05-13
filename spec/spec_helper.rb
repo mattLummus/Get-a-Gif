@@ -7,7 +7,7 @@ require 'gif'
 
 Environment.environment = "test"
 
-def run_ltk_with_input(*inputs)
+def run_giffer_with_input(*inputs)
   shell_output = ""
   IO.popen('ENVIRONMENT=test ./giffer', 'r+') do |pipe|
     inputs.each do |input|

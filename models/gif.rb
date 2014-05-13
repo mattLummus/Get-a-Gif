@@ -1,4 +1,5 @@
 require 'database'
+require 'environment'
 require 'active_record'
 class Gif < ActiveRecord::Base
   attr_reader :errors
