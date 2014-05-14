@@ -9,8 +9,12 @@ I want to see a list of options
 So that I can continue on
 
 #### Acceptance Criteria:
-  * If the user selects 1, they see "What is your first criteria? 1. Category 2. Emotion 3. Reference 4. Random Sample"
+  * If the user starts the app, they see the basic CRUD commands
+  * If the user selects 1, they see "What Emotion?"
   * If the user selects 2, they see "Enter your url:"
+  * If the user selects 3, they see "Enter your url:"
+  * If the user selects 4, they see "Enter your url:"
+  * If the user selects 5, they see "
   * If the user types in anything else, they should see "<input> is an invalid selection" and the menu should be printed out again
 
 Usage:
@@ -87,14 +91,12 @@ Usage:
     What do you want to do?
     1. Get a .gif
     2. Give a .gif
+    3. Update
+    4. Delete
+    5. Exit
     - 2
     Enter your url:
     - https://i.imgur.com/LsglmGb.gif
-    What Category?
-    1. Reaction
-    2. Abstract
-    3. New Category
-    - 1
     What Emotion?
     1. Approval
     2. Excitement
